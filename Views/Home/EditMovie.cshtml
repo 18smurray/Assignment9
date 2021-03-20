@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Edit Movie";
+}
+
+@model MovieResponse
+
+<br />
+<h4>Make Changes to This Movie</h4>
+<br />
+<form asp-action="SaveChanges" method="post">
+
+    <!--Hidden input for keeping track of the movieid - know which movie to overwrite-->
+    <input type="hidden" value="@Model.MovieId" name="movieid" />
+
+    <label asp-for="Category">Category: </label>
+    <input asp-for="Category" value="@Model.Category" />
+    <br />
+
+    <label asp-for="Title">Title: </label>
+    <input asp-for="Title" value="@Model.Title" />
+    <br />
+
+    <label asp-for="Year">Year: </label>
+    <input asp-for="Year" value="@Model.Year" />
+    <br />
+
+    <label asp-for="Director">Director: </label>
+    <input asp-for="Director" value="@Model.Director" />
+    <br />
+
+    <label asp-for="Rating">Rating: </label>
+    <select asp-for="Rating">
+        <!--<option value="">Select One</option>-->
+        @if (Model.Rating == "G")
+        {
+            <option value="G" selected>G</option>
+            <option value="PG">PG</option>
+            <option value="PG-13">PG-13</option>
+            <option value="R">R</option>
+        }
+        else if (Model.Rating == "PG")
+        {
+            <option value="G">G</option>
+            <option value="PG" selected>PG</option>
+            <option value="PG-13">PG-13</option>
+            <option value="R">R</option>
+        }
+        else if (Model.Rating == "PG-13")
+        {
+            <option value="G">G</option>
+            <option value="PG">PG</option>
+            <option value="PG-13" selected>PG-13</option>
+            <option value="R">R</option>
+        }
+        else
+        {
+            <option value="G">G</option>
+            <option value="PG">PG</option>
+            <option value="PG-13">PG-13</option>
+            <option value="R">R</option>
+        }
+    </select>
+    <br />
+
+    <label asp-for="Edited">Edited: </label>
+    <select asp-for="Edited">
+        <!--<option value="">Select One</option>-->
+        @if (Model.Edited == true)
+        {
+            <option value="true" selected>Yes</option>
+            <option value="false">No</option>
+        }
+        else if (Model.Edited == false)
+        {
+            <option value="true">Yes</option>
+            <option value="false" selected>No</option>
+        }
+        else
+        {
+            <option value="">Select One</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        }
+    </select>
+    <br />
+
+    <label asp-for="LentTo">LentTo: </label>
+    <input asp-for="LentTo" value="@Model.LentTo" />
+    <br />
+
+    <label asp-for="Notes">Notes: </label>
+    <input asp-for="Notes" value="@Model.Notes" />
+    <br />
+
+    <!--Returns descriptive info about validation errors-->
+    <div asp-validation-summary="All"></div>
+    <br /><br />
+
+    <button type="submit">Save Changes</button>
+</form>

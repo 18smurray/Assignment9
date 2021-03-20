@@ -1,0 +1,71 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "View Movies";
+}
+
+<!--Defines type of data coming in (the model stuff from the parameter)-->
+@model IEnumerable<MovieResponse>
+
+<div>
+    <br />
+    <h4>List of Movies Entered</h4>
+    <p>Note: Movies with the title "Independence Day" will not be displayed!</p>
+    <br />
+    <div class="text-center">
+        <table>
+            <!--Create table heading for each movie property/attribute-->
+            <thead>
+                <tr>
+                    <th width="10%">Category</th>
+                    <th width="10%">Title</th>
+                    <th width="10%">Year</th>
+                    <th width="10%">Director</th>
+                    <th width="10%">Rating</th>
+                    <th width="10%">Edited</th>
+                    <th width="10%">Lent To</th>
+                    <th width="10%">Notes</th>
+                    <th width="10%"></th>
+                    <th width="10%"></th>
+                </tr>
+            </thead>
+            <!--Display data for each attribute of each MovieResponse model object-->
+            <!--Refers to the list of MovieResponse objects passed as parameter in the Controller-->
+            <!--Model = special word refers to the model stuff passed as parameter-->
+            <tbody>
+                @foreach (MovieResponse movie in Model)
+                {
+                    <tr>
+                        <td>@movie.Category</td>
+                        <td>@movie.Title</td>
+                        <td>@movie.Year</td>
+                        <td>@movie.Director</td>
+                        <td>@movie.Rating</td>
+                        <td>@movie.Edited</td>
+                        <td>@movie.LentTo</td>
+                        <td>@movie.Notes</td>
+                        
+
+                        <!--Button for editing movie; pass associated movie's id to the controller-->
+                        <td>
+                            <form method="post" asp-action="EditMovie">
+                                <input type="hidden" name="movieid" value="@movie.MovieId" />
+                                <button type="submit">Edit</button>
+                            </form>
+                        </td>
+
+                        <!--Button for deleting the movie; passes associated movie id to controller-->
+                        <td>
+                            <form method="post" asp-action="DeleteMovie">
+                                <input type="hidden" name="movieid" value="@movie.MovieId" />
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+     </div>
+</div>
